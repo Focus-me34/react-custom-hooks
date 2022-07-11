@@ -7,6 +7,7 @@ const useHttp = () => {
   const sendRequest = useCallback(async (requestConfig, applyData) => {
     setIsLoading(true);
     setError(null);
+
     try {
       const response = await fetch(requestConfig.url, {
         method: requestConfig.method ? requestConfig.method : 'GET',
@@ -14,9 +15,7 @@ const useHttp = () => {
         body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
       });
 
-      if (!response.ok) {
-        throw new Error('Request failed!');
-      }
+      if (!response.ok) { throw new Error('Request failed!') }
 
       const data = await response.json();
       applyData(data);
